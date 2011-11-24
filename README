@@ -1,0 +1,12 @@
+This is stuff I use in my Ruby on Rails stack. It's nowhere near production 
+quality, but it works for me on a Debian Squeeze (32 bit) Vagrant base box.
+
+Stuff:
+  Unicorn
+  Nginx
+  Postgresql
+  Postfix
+  Redis
+  Memcached
+  Bundler
+  
