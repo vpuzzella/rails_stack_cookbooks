@@ -48,7 +48,7 @@ template "/etc/unicorn/unicorn.rb" do
 end
 template "/etc/init.d/unicorn" do
   source "unicorn.init.erb"
-  mode 0774
+  mode '0774'
 end
 service "unicorn" do
   supports :restart => true
