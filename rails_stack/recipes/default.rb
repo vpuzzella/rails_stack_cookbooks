@@ -13,6 +13,12 @@ execute 'apt-get update' do
   ]
 end
 
+cookbook_file "/home/vagrant/.irbrc" do
+  source 'irbrc'
+  owner 'vagrant'
+  mode '0644'
+end
+
 include_recipe 'postfix'
 
 package 'redis-server'
