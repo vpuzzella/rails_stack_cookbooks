@@ -13,7 +13,7 @@ execute 'apt-get update' do
   ]
 end
 
-package 'git-core'
+package 'git'
 
 cookbook_file "/home/vagrant/.irbrc" do
   source 'irbrc'
