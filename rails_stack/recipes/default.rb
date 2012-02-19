@@ -13,6 +13,8 @@ execute 'apt-get update' do
   ]
 end
 
+package 'git-core'
+
 cookbook_file "/home/vagrant/.irbrc" do
   source 'irbrc'
   owner 'vagrant'
