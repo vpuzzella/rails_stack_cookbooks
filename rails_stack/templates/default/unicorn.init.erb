@@ -1,6 +1,6 @@
 #!/bin/sh
 
-RAILS_ENV=<%= node[:rails_env] || 'development' %>
+<%= rails_env = node[:rails_env] || 'development' %>
 RAILS_ROOT=/vagrant
 
 set -e
@@ -57,7 +57,7 @@ setup () {
   export PID=$RAILS_ROOT/tmp/pids/unicorn.pid
   export OLD_PID="$PID.oldbin"
 
-  su - vagrant -c 'cd /vagrant; unicorn_rails -D -E $RAILS_ENV'
+  su - vagrant -c 'cd /vagrant; unicorn_rails -D -E <%= rails_env %>'
 }
 
 start_stop () {
