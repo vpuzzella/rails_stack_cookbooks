@@ -31,7 +31,7 @@ include_recipe "postgresql::server"
 
 gem_package 'bundler'
 execute 'bundle install' do
-  cwd '/vagrant'
+  command "su - vagrant -c 'cd /vagrant && bundle install'"
 end
 # Snippet from opscode to reload gems
 require 'rubygems'

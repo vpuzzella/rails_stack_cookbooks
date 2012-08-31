@@ -57,7 +57,7 @@ setup () {
   export PID=$RAILS_ROOT/tmp/pids/unicorn.pid
   export OLD_PID="$PID.oldbin"
 
-  CMD="/usr/local/bin/unicorn_rails -c /etc/unicorn/unicorn.rb -E $RAILS_ENV -D"
+  CMD="unicorn_rails -c /etc/unicorn/unicorn.rb -E $RAILS_ENV -D"
 }
 
 start_stop () {
