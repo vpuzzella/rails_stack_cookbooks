@@ -33,20 +33,23 @@ gem_package 'bundler'
 execute 'bundle install' do
   command "su - vagrant -c 'cd /vagrant && bundle install'"
 end
-# Snippet from opscode to reload gems
-require 'rubygems'
-Gem.clear_paths
 
-# Create a database user based on env and db config
-require 'yaml'
+if File.exist? dbyml = '/vagrant/config/database.yml'
+  # Snippet from opscode to reload gems
+  require 'rubygems'
+  Gem.clear_paths
 
-rails_env = node[:rails_env] || 'development'
-user_name = YAML::load(File.open '/vagrant/config/database.yml')[rails_env]['username']
-execute "create database user: #{user_name}" do
-  user 'postgres'
-  not_if "psql -c '\\du #{user_name}' | grep #{user_name}", :user => 'postgres'
-  #TODO: Base createuser options on rails_env. IMO, --superuser is acceptable for development/test only
-  command "createuser --superuser #{user_name}"
+  # Create a database user based on env and db config
+  require 'yaml'
+  
+  rails_env = node[:rails_env] || 'development'
+  if user_name = YAML::load(File.open dbyml).fetch(rails_env, {})['username']
+  execute "create database user: #{user_name}" do
+    user 'postgres'
+    not_if "psql -c '\\du #{user_name}' | grep #{user_name}", :user => 'postgres'
+    #TODO: Base createuser options on rails_env. IMO, --superuser is acceptable for development/test only
+    command "createuser --superuser #{user_name}"
+  end
 end
 
 gem_package 'unicorn'
