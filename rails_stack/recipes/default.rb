@@ -41,14 +41,15 @@ if File.exist? dbyml = '/vagrant/config/database.yml'
 
   # Create a database user based on env and db config
   require 'yaml'
-  
+
   rails_env = node[:rails_env] || 'development'
   if user_name = YAML::load(File.open dbyml).fetch(rails_env, {})['username']
-  execute "create database user: #{user_name}" do
-    user 'postgres'
-    not_if "psql -c '\\du #{user_name}' | grep #{user_name}", :user => 'postgres'
-    #TODO: Base createuser options on rails_env. IMO, --superuser is acceptable for development/test only
-    command "createuser --superuser #{user_name}"
+    execute "create database user: #{user_name}" do
+      user 'postgres'
+      not_if "psql -c '\\du #{user_name}' | grep #{user_name}", :user => 'postgres'
+      #TODO: Base createuser options on rails_env. IMO, --superuser is acceptable for development/test only
+      command "createuser --superuser #{user_name}"
+    end
   end
 end
 
