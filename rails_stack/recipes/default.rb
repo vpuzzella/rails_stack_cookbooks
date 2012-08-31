@@ -64,7 +64,7 @@ template "/etc/init.d/unicorn" do
 end
 service "unicorn" do
   supports :restart => true
-  action :enable
+  action [:enable, :start]
   subscribes :restart, resources(:template => ["/etc/init.d/unicorn", "/etc/unicorn/unicorn.rb"])
 end
 
@@ -74,7 +74,7 @@ template "/etc/nginx/nginx.conf" do
 end
 service "nginx" do
   supports :restart => true
-  action :enable
+  action [:enable, :start]
   subscribes :restart, resources(:template => ["/etc/nginx/nginx.conf"])
 end
 
